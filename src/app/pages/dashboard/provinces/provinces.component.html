@@ -1,5 +1,6 @@
 <mat-list *ngIf="(provinces$ | async) as provinces">
-    <mat-list-item *ngFor="let province of provinces">
+    <mat-list-item *ngFor="let province of provinces; let i = index">
+    <p mat-list-icon [ngStyle]="{'background-color':  i | asColor}"></p>
         <p mat-line>{{province.name}} ({{province.code}})</p>
         <small mat-line class="cases">casi totali: <strong>{{province.cases}}</strong></small>
     </mat-list-item>

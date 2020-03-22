@@ -6,10 +6,11 @@ import { DistrictComponent } from './district/district.component';
 import { ProvincesComponent } from './provinces/provinces.component';
 import { ChartsComponent } from './charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
+import { AsColorPipe } from 'src/app/commons/pipes/as-color.pipe';
 
 
 @NgModule({
-  declarations: [DashboardComponent, DistrictComponent, ProvincesComponent, ChartsComponent],
+  declarations: [DashboardComponent, DistrictComponent, ProvincesComponent, ChartsComponent, AsColorPipe],
   imports: [
     CommonModule,
     MaterialModule,

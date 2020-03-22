@@ -3,6 +3,7 @@ import { GithubService } from 'src/app/commons/services/github.service';
 import { ChartDataSets, ChartOptions, ChartTooltipItem } from 'chart.js';
 import { ProvinceData } from 'src/app/commons/models/province-data';
 import { Label, BaseChartDirective } from 'ng2-charts';
+import { Colors } from 'src/app/commons/models/colors';
 
 @Component({
   selector: 'app-charts',
@@ -71,14 +72,19 @@ export class ChartsComponent implements OnInit, OnChanges {
       this.github.getAllDataInDistrict(changes.district.currentValue)
         .subscribe(data => {
 
+          let index = 0;
           this.chartData = Object.entries(data)
             .filter(([code]) => code)
             .map(([code, values]) => {
+              const color = Colors.SUPPORTED[index++];
               return {
                 label: code,
                 data: (values as ProvinceData[]).map(v => v.totale_casi),
                 fill: false,
-                pointRadius: 5
+                pointRadius: 5,
+                backgroundColor: color,
+                borderColor: color,
+                pointBackgroundColor: color
               };
             });
 

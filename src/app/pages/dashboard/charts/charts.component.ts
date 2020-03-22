@@ -88,7 +88,12 @@ export class ChartsComponent implements OnInit, OnChanges {
               };
             });
 
-          this.labels = (Object.entries(data)[1][1] as ProvinceData[]).map(v => v.data.split(' ')[0]);
+          this.labels = (Object.entries(data)[1][1] as ProvinceData[])
+                                                                .map(v => v.data.split(' ')[0])
+                                                                .map(v => {
+                                                                  const split = v.split('-');
+                                                                  return `${split[2]}/${split[1]}`;
+                                                                });
         });
     }
   }

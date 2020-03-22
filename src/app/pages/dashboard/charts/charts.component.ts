@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { GithubService } from 'src/app/commons/services/github.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { ProvinceData } from 'src/app/commons/models/province-data';
-import { Label } from 'ng2-charts';
+import { Label, BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-charts',
@@ -19,6 +19,9 @@ export class ChartsComponent implements OnInit, OnChanges {
   labels: Label[];
 
   options: ChartOptions;
+
+  @ViewChild('chart', { static: true })
+  chartComponent: BaseChartDirective;
 
   constructor(private github: GithubService) { }
 
@@ -55,17 +58,20 @@ export class ChartsComponent implements OnInit, OnChanges {
         .subscribe(data => {
 
           this.chartData = Object.entries(data)
-            .filter(([code, values]) => code)
+            .filter(([code]) => code)
             .map(([code, values]) => {
               return {
                 label: code,
-                data: (values as ProvinceData[]).map(v => v.totale_casi)
+                data: (values as ProvinceData[]).map(v => v.totale_casi),
+                fill: false,
+                pointRadius: 5
               };
             });
 
-          this.labels = (Object.entries(data)[1][1] as ProvinceData[]).map(v => v.data);
+          this.labels = (Object.entries(data)[1][1] as ProvinceData[]).map(v => v.data.split(' ')[0]);
         });
     }
   }
+
 
 }

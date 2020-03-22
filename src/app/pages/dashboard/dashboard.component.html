@@ -2,6 +2,6 @@
     <app-district (selected)="districtChanged($event)"></app-district>
 </div>
 <div fxLayout="row">
-    <app-provinces fxFlex=20 [district]="selectedDistrict"></app-provinces>
-    <app-charts fxFlex=80 [district]="selectedDistrict"></app-charts>
+    <app-provinces fxFlex="10" [district]="selectedDistrict"></app-provinces>
+    <app-charts fxFlex="90" [district]="selectedDistrict"></app-charts>
 </div>

@@ -1,0 +1,5 @@
+<div *ngIf="(data$ | async) as data">
+    <div *ngFor="let d of data">
+        {{d}}
+    </div>
+</div>

@@ -18,6 +18,7 @@ export class ProvincesComponent implements OnInit, OnChanges {
   constructor(private github: GithubService) { }
 
   ngOnInit() {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {

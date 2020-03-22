@@ -40,7 +40,8 @@ export class GithubService {
             .map(d => {
               return {
                 code: d.sigla_provincia,
-                name: d.denominazione_provincia
+                name: d.denominazione_provincia,
+                cases: d.totale_casi
               };
             });
         })

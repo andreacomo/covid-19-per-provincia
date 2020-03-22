@@ -1,10 +1,3 @@
-<div *ngIf="(districts$ | async) as districts" fxLayout="row" fxLayoutAlign="center">
-    <mat-form-field>
-        <mat-label>Seleziona la regione</mat-label>
-        <mat-select placeholder="Regione">
-            <mat-option *ngFor="let district of districts" [value]="district">
-            {{district}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<div fxLayout="row" fxLayoutAlign="center">
+    <app-district></app-district>
 </div>

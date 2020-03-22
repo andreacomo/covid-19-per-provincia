@@ -1,5 +1,5 @@
 export class ProvinceData {
-    data: Date;
+    data: string;
     stato: string;
     'codice_regione': number;
     'denominazione_regione': string;

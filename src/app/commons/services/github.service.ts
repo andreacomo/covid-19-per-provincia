@@ -18,6 +18,8 @@ export class GithubService {
 
   private latestDataCache$: Observable<ProvinceData[]>;
 
+  private allDataCache$: Observable<ProvinceData[]>;
+
   constructor(private http: HttpClient) { }
 
   getDistricts(): Observable<string[]> {
@@ -45,6 +47,22 @@ export class GithubService {
       );
   }
 
+  getAllDataInDistrict(district: string) {
+    return this.getAllData()
+      .pipe(
+        map(data => {
+          return data
+                    .filter(d => d.denominazione_regione === district)
+                    .reduce((acc, i) => {
+                      const group = acc[i.sigla_provincia] || [];
+                      group.push(i);
+                      acc[i.sigla_provincia] = group;
+                      return acc;
+                    }, {});
+        })
+      );
+  }
+
   private getLatestData(): Observable<ProvinceData[]> {
     if (this.latestDataCache$ == null) {
       this.latestDataCache$ = this.http.get(this.BASE_PATH + this.LATEST_DATA)
@@ -54,5 +72,16 @@ export class GithubService {
           ) as Observable<ProvinceData[]>;
     }
     return this.latestDataCache$;
+  }
+
+  private getAllData(): Observable<ProvinceData[]> {
+    if (this.allDataCache$ == null) {
+      this.allDataCache$ = this.http.get(this.BASE_PATH + this.ALL_DATA)
+          .pipe(
+            publishReplay(1),
+            refCount()
+          ) as Observable<ProvinceData[]>;
+    }
+    return this.allDataCache$;
   }
 }

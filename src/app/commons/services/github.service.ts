@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, flatMap } from 'rxjs/operators';
 import { CsvParserService } from './csv-parser.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class GithubService {
     return this.http.get(this.BASE_PATH);
   }
 
-  getDistricts() {
+  getDistricts(): Observable<string[]> {
     return this.http.get(`${this.CONTENT_BASE_PATH}/${this.FILE_PREFIX}${this.FILE_LATEST_SUFFIX}`, {responseType: 'text'})
       .pipe(
         flatMap(csv => {
@@ -32,7 +33,7 @@ export class GithubService {
           });
         }),
         map(parsed => {
-          return [... new Set((parsed as any).data.map(d => d.denominazione_regione))];
+          return [... new Set((parsed as any).data.map(d => d.denominazione_regione))] as string[];
         })
       );
   }

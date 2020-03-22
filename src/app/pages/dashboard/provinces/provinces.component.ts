@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GithubService } from 'src/app/commons/services/github.service';
 import { Observable } from 'rxjs';
-import { Province } from './province';
+import { Province } from '../../../commons/models/province';
 
 @Component({
   selector: 'app-provinces',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, publishReplay, refCount } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Province } from 'src/app/commons/models/province';
 import { ProvinceData } from '../models/province-data';
@@ -16,10 +16,12 @@ export class GithubService {
 
   private readonly LATEST_DATA = 'dpc-covid19-ita-province-latest.json';
 
+  private latestDataCache$: Observable<ProvinceData[]>;
+
   constructor(private http: HttpClient) { }
 
   getDistricts(): Observable<string[]> {
-    return this.http.get(this.BASE_PATH + this.LATEST_DATA)
+    return this.getLatestData()
       .pipe(
         map(parsed => {
           return [... new Set((parsed as ProvinceData[]).map(d => d.denominazione_regione))] as string[];
@@ -28,7 +30,7 @@ export class GithubService {
   }
 
   getProvincesOf(district: string): Observable<Province[]> {
-    return this.http.get(this.BASE_PATH + this.LATEST_DATA)
+    return this.getLatestData()
       .pipe(
         map(parsed => {
           return (parsed as ProvinceData[])
@@ -41,5 +43,16 @@ export class GithubService {
             });
         })
       );
+  }
+
+  private getLatestData(): Observable<ProvinceData[]> {
+    if (this.latestDataCache$ == null) {
+      this.latestDataCache$ = this.http.get(this.BASE_PATH + this.LATEST_DATA)
+          .pipe(
+            publishReplay(1),
+            refCount()
+          ) as Observable<ProvinceData[]>;
+    }
+    return this.latestDataCache$;
   }
 }

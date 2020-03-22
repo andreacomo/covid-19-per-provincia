@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { MaterialModule } from 'src/app/commons/material/material.module';
 import { DistrictComponent } from './district/district.component';
+import { ProvincesComponent } from './provinces/provinces.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, DistrictComponent],
+  declarations: [DashboardComponent, DistrictComponent, ProvincesComponent],
   imports: [
     CommonModule,
     MaterialModule

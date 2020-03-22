@@ -9,15 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  data$: any;
+  selectedDistrict: string;
 
-  districts$: Observable<string[]>;
-
-  constructor(private github: GithubService) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.data$ = this.github.getData();
-    this.districts$ = this.github.getDistricts();
   }
 
+  districtChanged(event) {
+    this.selectedDistrict = event;
+  }
 }

@@ -1,3 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <app-district></app-district>
+    <app-district (selected)="districtChanged($event)"></app-district>
+</div>
+<div fxLayout="row">
+    <app-provinces fxFlex=30 [district]="selectedDistrict"></app-provinces>
 </div>

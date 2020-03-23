@@ -4,6 +4,7 @@ import { map, publishReplay, refCount } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Province } from 'src/app/commons/models/province';
 import { ProvinceData } from '../models/province-data';
+import { DistrictDetailedData } from '../models/district-detailed-data';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class GithubService {
       );
   }
 
-  getAllDataInDistrict(district: string) {
+  getAllDataInDistrict(district: string): Observable<DistrictDetailedData> {
     return this.getAllData()
       .pipe(
         map(data => {
@@ -59,7 +60,7 @@ export class GithubService {
                       group.push(i);
                       acc[i.sigla_provincia] = group;
                       return acc;
-                    }, {});
+                    }, {}) as DistrictDetailedData;
         })
       );
   }

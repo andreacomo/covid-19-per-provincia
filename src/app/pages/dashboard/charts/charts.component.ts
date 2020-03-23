@@ -5,6 +5,7 @@ import { ProvinceData } from 'src/app/commons/models/province-data';
 import { Label, BaseChartDirective } from 'ng2-charts';
 import { Colors } from 'src/app/commons/models/colors';
 import { LinearChartProvider } from './linear-chart-provider';
+import { LocalDataService } from 'src/app/commons/services/local-data.service';
 
 @Component({
   selector: 'app-charts',
@@ -22,13 +23,19 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   options: ChartOptions;
 
+  plugins: any[];
+
   @ViewChild('chart', { static: true })
   chartComponent: BaseChartDirective;
 
-  constructor(private github: GithubService) { }
+  constructor(private github: GithubService,
+              private dataService: LocalDataService) { }
 
   ngOnInit() {
-    this.options = LinearChartProvider.getOptions();
+    this.dataService.getMilestones()
+      .subscribe(m => {
+        this.options = LinearChartProvider.getOptions(m);
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -38,9 +45,9 @@ export class ChartsComponent implements OnInit, OnChanges {
           this.chartData = LinearChartProvider.createChartData(data);
 
           this.labels = LinearChartProvider.createLabels(data);
+
+          this.plugins = LinearChartProvider.getPlugins();
         });
     }
   }
-
-
 }

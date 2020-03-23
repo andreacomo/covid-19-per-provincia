@@ -2,10 +2,12 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { DistrictDetailedData } from 'src/app/commons/models/district-detailed-data';
 import { Colors } from 'src/app/commons/models/colors';
 import { Label } from 'ng2-charts';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { Milestone } from 'src/app/commons/models/milestone';
 
 export class LinearChartProvider {
 
-    static getOptions(): ChartOptions {
+    static getOptions(milestones: Milestone[]): (ChartOptions & { annotation: any }) {
         return {
             responsive: true,
             aspectRatio: 2,
@@ -42,6 +44,26 @@ export class LinearChartProvider {
                   top: 0,
                   bottom: 0
               }
+            },
+            annotation: {
+                annotations: milestones.map(m => {
+                    return {
+                        type: 'line',
+                        mode: 'vertical',
+                        scaleID: 'x-axis-0',
+                        value: this.dateStringAsLabel(m.date),
+                        borderColor: 'orange',
+                        borderWidth: 1,
+                        label: {
+                            enabled: true,
+                            position: 'top',
+                            yAdjust: 25,
+                            fontColor: '#555',
+                            backgroundColor: '#dddd',
+                            content: m.description
+                        }
+                    };
+                })
             }
           };
     }
@@ -66,10 +88,16 @@ export class LinearChartProvider {
 
     static createLabels(data: DistrictDetailedData): Label[] {
         return (Object.entries(data)[1][1])
-                            .map(v => v.data.split(' ')[0])
-                            .map(v => {
-                                const split = v.split('-');
-                                return `${split[2]}/${split[1]}`;
-                            });
+                            .map(v => this.dateStringAsLabel(v.data));
+    }
+
+    static getPlugins(): any[] {
+        return [pluginAnnotations];
+    }
+
+    private static dateStringAsLabel(date: string): string {
+        const datePart = date.split(' ')[0];
+        const split = datePart.split('-');
+        return `${split[2]}/${split[1]}`;
     }
 }

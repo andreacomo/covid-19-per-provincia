@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   selectedDistrict: string;
 
-  selectedProvince: Province;
+  selectedProvinces: Province[];
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
     this.selectedDistrict = event;
   }
 
-  provinceClicked(event: Province) {
-    this.selectedProvince = { ...event }; // cloning object will trigger onChanges on child components
+  provinceClicked(event: Province[]) {
+    this.selectedProvinces = event;
   }
 }

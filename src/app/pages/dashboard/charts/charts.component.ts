@@ -17,7 +17,7 @@ export class ChartsComponent implements OnInit, OnChanges {
   district: string;
 
   @Input()
-  toggleProvince: Province;
+  toggleProvinces: Province[];
 
   chartData: ChartDataSets[];
 
@@ -52,11 +52,13 @@ export class ChartsComponent implements OnInit, OnChanges {
         });
     }
 
-    if (changes.toggleProvince != null && changes.toggleProvince.currentValue) {
-      const dataSetIndex = this.chartData
-        .map(d => d.label)
-        .indexOf(changes.toggleProvince.currentValue.code);
-      this.chart.hideDataset(dataSetIndex, changes.toggleProvince.currentValue.disabled);
+    if (changes.toggleProvinces != null && changes.toggleProvinces.currentValue) {
+      changes.toggleProvinces.currentValue.forEach(p => {
+        const dataSetIndex = this.chartData
+          .map(d => d.label)
+          .indexOf(p.code);
+        this.chart.hideDataset(dataSetIndex, p.disabled);
+      });
     }
   }
 }

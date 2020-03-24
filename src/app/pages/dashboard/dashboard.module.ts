@@ -7,6 +7,7 @@ import { ProvincesComponent } from './provinces/provinces.component';
 import { ChartsComponent } from './charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
 import { AsColorPipe } from 'src/app/commons/pipes/as-color.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AsColorPipe } from 'src/app/commons/pipes/as-color.pipe';
   imports: [
     CommonModule,
     MaterialModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

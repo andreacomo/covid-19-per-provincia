@@ -1,8 +1,16 @@
-a[mat-button] {
-    width: 24px;
-    height: 24px;
+.container {
+    min-height: 100vh;
 
-    &:hover {
-        opacity: .8;
+    a[mat-button] {
+        width: 24px;
+        height: 24px;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+
+    .content {
+        flex: 1;
     }
 }

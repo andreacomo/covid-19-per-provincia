@@ -1,0 +1,12 @@
+@import '../../../styles/palette.scss';
+
+.footer {
+    height: 10vh;
+    border-top: 1px solid #ccc;
+    background-color: rgb(56, 56, 56);
+    color: map-get($md-primary, 50);
+
+    a {
+        color: inherit;
+    }
+}

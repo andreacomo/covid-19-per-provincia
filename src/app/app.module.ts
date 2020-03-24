@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './commons/material/material.module';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

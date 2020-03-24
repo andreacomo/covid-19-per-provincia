@@ -1,10 +1,13 @@
-<div gdAuto="row" gdGap="1em">
+<div fxLayout="column" fxLayoutGap="1em" class="container">
   <mat-toolbar color="primary" class="mat-elevation-z6">
-    <span>COVID-19 - Distribuzione casi per provincia</span>
+    <span>COVID-19 Per provincia</span>
     <span fxFlex="1 1 auto"></span>
-    <a mat-button href="https://github.com/andreacomo/covid-19-per-provincia" target="_blank">
+    <a mat-button href="https://github.com/andreacomo/covid-19-per-provincia" target="_blank" matTooltip="Fork me!" aria-label="Click me to contribute">
       <mat-icon svgIcon="github" [ngStyle]="{'color':'white'}"></mat-icon>
     </a>
   </mat-toolbar>
-  <router-outlet></router-outlet>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>

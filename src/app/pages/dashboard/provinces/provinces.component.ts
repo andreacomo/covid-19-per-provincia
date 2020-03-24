@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { GithubService } from 'src/app/commons/services/github.service';
 import { Observable } from 'rxjs';
 import { Province } from '../../../commons/models/province';
@@ -13,7 +13,12 @@ export class ProvincesComponent implements OnInit, OnChanges {
   @Input()
   district: string;
 
-  provinces$: Observable<Province[]>;
+  @Output()
+  clickItem: EventEmitter<Province> = new EventEmitter<Province>();
+
+  provinces$: Observable<any>;
+
+  disabledItems: Array<boolean>;
 
   constructor(private github: GithubService) { }
 
@@ -27,4 +32,8 @@ export class ProvincesComponent implements OnInit, OnChanges {
     }
   }
 
+  toggle(province: Province & {disabled: boolean}) {
+    province.disabled = !province.disabled;
+    this.clickItem.next(province);
+  }
 }

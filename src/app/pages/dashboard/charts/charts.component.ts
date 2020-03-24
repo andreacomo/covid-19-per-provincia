@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { GithubService } from 'src/app/commons/services/github.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { ProvinceData } from 'src/app/commons/models/province-data';
 import { Label, BaseChartDirective } from 'ng2-charts';
-import { Colors } from 'src/app/commons/models/colors';
 import { LinearChartProvider } from './linear-chart-provider';
 import { LocalDataService } from 'src/app/commons/services/local-data.service';
+import { Province } from 'src/app/commons/models/province';
 
 @Component({
   selector: 'app-charts',
@@ -17,6 +16,9 @@ export class ChartsComponent implements OnInit, OnChanges {
   @Input()
   district: string;
 
+  @Input()
+  toggleProvince: Province;
+
   chartData: ChartDataSets[];
 
   labels: Label[];
@@ -25,8 +27,8 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   plugins: any[];
 
-  @ViewChild('chart', { static: true })
-  chartComponent: BaseChartDirective;
+  @ViewChild(BaseChartDirective, { static: false })
+  chart: BaseChartDirective;
 
   constructor(private github: GithubService,
               private dataService: LocalDataService) { }
@@ -39,7 +41,7 @@ export class ChartsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.district.currentValue !== changes.district.previousValue) {
+    if (changes.district != null && changes.district.currentValue) {
       this.github.getAllDataInDistrict(changes.district.currentValue)
         .subscribe(data => {
           this.chartData = LinearChartProvider.createChartData(data);
@@ -48,6 +50,13 @@ export class ChartsComponent implements OnInit, OnChanges {
 
           this.plugins = LinearChartProvider.getPlugins();
         });
+    }
+
+    if (changes.toggleProvince != null && changes.toggleProvince.currentValue) {
+      const dataSetIndex = this.chartData
+        .map(d => d.label)
+        .indexOf(changes.toggleProvince.currentValue.code);
+      this.chart.hideDataset(dataSetIndex, changes.toggleProvince.currentValue.disabled);
     }
   }
 }

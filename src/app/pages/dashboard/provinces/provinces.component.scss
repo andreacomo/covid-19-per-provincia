@@ -3,3 +3,16 @@
 .cases {
     color: $text-light;
 }
+
+.province-btn {
+    border-radius: 4px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #F0F0F0;
+    }
+
+    &.disabled {
+        opacity: .4;
+    }
+}

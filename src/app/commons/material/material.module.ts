@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -21,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     MatIconModule,
     MatTooltipModule,
+    MatButtonModule,
     FlexLayoutModule
   ]
 })

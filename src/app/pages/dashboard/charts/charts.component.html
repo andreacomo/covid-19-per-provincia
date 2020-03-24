@@ -1,4 +1,4 @@
-<div *ngIf="chartData">
+<div *ngIf="chartData" fxHide.xs>
     <canvas baseChart #chart
             [datasets]="chartData"
             [labels]="labels"
@@ -6,4 +6,10 @@
             [legend]="true"
             [plugins]="plugins"
             [chartType]="'line'"></canvas>
+</div>
+<div *ngIf="chartData" fxShow.xs fxHide.gt-xs fxLayout="column" fxLayoutAlign="center center" class="change-rotation">
+    <p>
+        <mat-icon>screen_rotation</mat-icon>  
+    </p>
+    <p>Ruota il dispositivo per vedere il grafico</p>
 </div>

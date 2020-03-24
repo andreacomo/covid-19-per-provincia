@@ -13,3 +13,6 @@
     </p>
     <p>Ruota il dispositivo per vedere il grafico</p>
 </div>
+<div *ngIf="!chartData && district" fxLayout="column" fxLayoutAlign="center center" class="spinner">
+    <mat-spinner [diameter]="48"></mat-spinner>
+</div>

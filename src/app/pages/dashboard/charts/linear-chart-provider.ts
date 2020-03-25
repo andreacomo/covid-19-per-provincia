@@ -1,4 +1,4 @@
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartOptions, ChartSize } from 'chart.js';
 import { DistrictDetailedData } from 'src/app/commons/models/district-detailed-data';
 import { Colors } from 'src/app/commons/models/colors';
 import { Label } from 'ng2-charts';
@@ -8,6 +8,7 @@ import { Milestone } from 'src/app/commons/models/milestone';
 export class LinearChartProvider {
 
     static getOptions(milestones: Milestone[]): (ChartOptions & { annotation: any }) {
+        let labelGaps = 1;
         return {
             responsive: true,
             aspectRatio: 2,
@@ -57,9 +58,10 @@ export class LinearChartProvider {
                         label: {
                             enabled: true,
                             position: 'top',
-                            yAdjust: 25,
+                            yAdjust: (150 / labelGaps++),
                             fontColor: '#555',
                             backgroundColor: '#dddd',
+                            rotation: 120,
                             content: m.description
                         }
                     };

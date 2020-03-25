@@ -5,11 +5,11 @@ import { Province } from 'src/app/commons/models/province';
 import { ProvinceData } from 'src/app/commons/models/province-data';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-provinces-dashboard',
+  templateUrl: './provinces-dashboard.component.html',
+  styleUrls: ['./provinces-dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class ProvincesDashboardComponent implements OnInit {
 
   selectedDistrict: string;
 

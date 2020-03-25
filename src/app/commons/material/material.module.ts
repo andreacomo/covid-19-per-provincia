@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -27,6 +28,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
+    MatSidenavModule,
     FlexLayoutModule
   ]
 })

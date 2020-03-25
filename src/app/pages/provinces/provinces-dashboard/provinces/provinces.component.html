@@ -1,13 +1,6 @@
 <div *ngIf="provinces">
     <div fxLayout="column" fxLayoutAlign="space-around center">
-        <mat-button-toggle-group #group="matButtonToggleGroup" class="toggle-group" [(ngModel)]="checkGroup" (change)="onCheckGroupChange($event)">
-            <mat-button-toggle value="all" aria-label="Seleziona tutto" matTooltip="Seleziona tutto">
-                <mat-icon>radio_button_checked</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle value="none" aria-label="Deseleziona tutto" matTooltip="Deseleziona tutto">
-                <mat-icon>radio_button_unchecked</mat-icon>
-            </mat-button-toggle>
-        </mat-button-toggle-group>
+        <app-toggle-buttons [list]="provinces" [value]="checkGroup" (valueChange)="onCheckGroupChange($event)"></app-toggle-buttons>
     </div>
     <mat-list>
             <mat-list-item (click)="toggle(province)" *ngFor="let province of provinces; let i = index" class="province-btn" [class.disabled]="province.disabled"> 

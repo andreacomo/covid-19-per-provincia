@@ -42,14 +42,15 @@ export class ProvincesComponent implements OnInit, OnChanges {
   }
 
   onCheckGroupChange(event: MatButtonToggleChange) {
-    switch (event.value) {
+    /*switch (event.value) {
       case 'all':
         this.setAllDisabledAs(false);
         break;
       case 'none':
         this.setAllDisabledAs(true);
         break;
-    }
+    }*/
+    this.checkGroup = event.value;
     this.clickItems.next([...this.provinces]); // cloning will trigger changes in child components...
   }
 

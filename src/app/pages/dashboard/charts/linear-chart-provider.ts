@@ -98,7 +98,7 @@ export class LinearChartProvider {
     }
 
     private static dateStringAsLabel(date: string): string {
-        const datePart = date.split(' ')[0];
+        const datePart = date.split('T')[0];
         const split = datePart.split('-');
         return `${split[2]}/${split[1]}`;
     }

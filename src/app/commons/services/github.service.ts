@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, publishReplay, refCount } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Province } from 'src/app/commons/models/province';
 import { ProvinceData } from '../models/province-data';
 import { DistrictDetailedData } from '../models/district-detailed-data';
+import { DistrictData } from '../models/district-data';
+import { RemoteDataService } from './remote-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,30 +14,25 @@ export class GithubService {
 
   private readonly BASE_PATH = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/';
 
-  private readonly ALL_DATA = 'dpc-covid19-ita-province.json';
+  private readonly ALL_PROVINCES_DATA = 'dpc-covid19-ita-province.json';
 
-  private readonly LATEST_DATA = 'dpc-covid19-ita-province-latest.json';
+  private readonly ALL_DISTRICTS_DATA = 'dpc-covid19-ita-regioni.json';
 
-  private latestDataCache$: Observable<ProvinceData[]>;
+  private readonly LATEST_PROVINCES_DATA = 'dpc-covid19-ita-province-latest.json';
 
-  private allDataCache$: Observable<ProvinceData[]>;
+  private readonly LATEST_DISTRICTS_DATA = 'dpc-covid19-ita-regioni-latest.json';
 
-  constructor(private http: HttpClient) { }
+  constructor(private remote: RemoteDataService) { }
 
-  getDistricts(): Observable<string[]> {
-    return this.getLatestData()
-      .pipe(
-        map(parsed => {
-          return [... new Set((parsed as ProvinceData[]).map(d => d.denominazione_regione))] as string[];
-        })
-      );
+  getDistricts(): Observable<DistrictData[]> {
+    return this.remote.getLatestData<DistrictData>(this.BASE_PATH + this.LATEST_DISTRICTS_DATA);
   }
 
   getProvincesOf(district: string): Observable<Province[]> {
-    return this.getLatestData()
+    return this.remote.getLatestData<ProvinceData>(this.BASE_PATH + this.LATEST_PROVINCES_DATA)
       .pipe(
         map(parsed => {
-          return (parsed as ProvinceData[])
+          return parsed
             .filter(p => p.denominazione_regione === district && p.sigla_provincia)
             .map(d => {
               return {
@@ -50,7 +46,7 @@ export class GithubService {
   }
 
   getAllDataInDistrict(district: string): Observable<DistrictDetailedData> {
-    return this.getAllData()
+    return this.remote.getAllData<ProvinceData>(this.BASE_PATH + this.ALL_PROVINCES_DATA)
       .pipe(
         map(data => {
           return data
@@ -63,27 +59,5 @@ export class GithubService {
                     }, {}) as DistrictDetailedData;
         })
       );
-  }
-
-  private getLatestData(): Observable<ProvinceData[]> {
-    if (this.latestDataCache$ == null) {
-      this.latestDataCache$ = this.http.get(this.BASE_PATH + this.LATEST_DATA)
-          .pipe(
-            publishReplay(1),
-            refCount()
-          ) as Observable<ProvinceData[]>;
-    }
-    return this.latestDataCache$;
-  }
-
-  private getAllData(): Observable<ProvinceData[]> {
-    if (this.allDataCache$ == null) {
-      this.allDataCache$ = this.http.get(this.BASE_PATH + this.ALL_DATA)
-          .pipe(
-            publishReplay(1),
-            refCount()
-          ) as Observable<ProvinceData[]>;
-    }
-    return this.allDataCache$;
   }
 }

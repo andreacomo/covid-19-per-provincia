@@ -42,14 +42,6 @@ export class ProvincesComponent implements OnInit, OnChanges {
   }
 
   onCheckGroupChange(event: MatButtonToggleChange) {
-    /*switch (event.value) {
-      case 'all':
-        this.setAllDisabledAs(false);
-        break;
-      case 'none':
-        this.setAllDisabledAs(true);
-        break;
-    }*/
     this.checkGroup = event.value;
     this.clickItems.next([...this.provinces]); // cloning will trigger changes in child components...
   }
@@ -62,12 +54,5 @@ export class ProvincesComponent implements OnInit, OnChanges {
     } else {
       this.checkGroup = null;
     }
-  }
-
-  private setAllDisabledAs(value: boolean) {
-    this.provinces.map(p => {
-                    p.disabled = value;
-                    return p;
-                  });
   }
 }

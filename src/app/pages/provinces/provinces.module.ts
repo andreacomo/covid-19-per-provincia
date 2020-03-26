@@ -6,13 +6,12 @@ import { DistrictComponent } from './provinces-dashboard/district/district.compo
 import { ProvincesComponent } from './provinces-dashboard/provinces/provinces.component';
 import { ChartsComponent } from './provinces-dashboard/charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
-import { AsColorPipe } from 'src/app/commons/pipes/as-color.pipe';
 import { FormsModule } from '@angular/forms';
-import { CommonComponentsModule } from 'src/app/commons/components/common-components.module';
+import { CommonComponentsModule } from 'src/app/commons/common-components.module';
 
 
 @NgModule({
-  declarations: [ProvincesDashboardComponent, DistrictComponent, ProvincesComponent, ChartsComponent, AsColorPipe],
+  declarations: [ProvincesDashboardComponent, DistrictComponent, ProvincesComponent, ChartsComponent],
   imports: [
     CommonModule,
     MaterialModule,

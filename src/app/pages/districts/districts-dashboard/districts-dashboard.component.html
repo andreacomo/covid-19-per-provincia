@@ -6,11 +6,12 @@
         DRAWER
     </mat-drawer>
     <mat-drawer-content>
-        <div fxLayout="row" fxLayout.lt-sm="column" fxLayout.sm="column">
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayout.sm="column" class="districts-content">
             <!--
             <app-provinces fxFlex="20" fxHide.lt-sm fxHide.sm fxShow.gt-sm [district]="selectedDistrict" (clickItems)="provinceClicked($event)"></app-provinces>
             <app-charts fxFlex="80" fxFlex.lt-sm="100" fxFlex.sm="100" [district]="selectedDistrict" [toggleProvinces]="selectedProvinces"></app-charts>
             -->
+            <app-districts fxFlex="20" fxHide.lt-sm fxHide.sm fxShow.gt-sm></app-districts>
             <button mat-fab color="accent" class="filter" (click)="drawer.toggle()" fxHide.xs fxShow.sm fxHide.gt-sm fxFlexAlign="end" *ngIf="selectedDistrict != null">
                 <mat-icon>filter_list</mat-icon>
             </button>

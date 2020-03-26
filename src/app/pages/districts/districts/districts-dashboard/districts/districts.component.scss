@@ -1,0 +1,22 @@
+@import 'src/styles/palette.scss';
+
+.cases {
+    color: $text-light;
+}
+
+.toggle-group {
+    margin-top: 1.5em;
+}
+
+.district-btn {
+    border-radius: 4px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #F0F0F0;
+    }
+
+    &.disabled {
+        opacity: .4;
+    }
+}
